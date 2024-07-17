@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
 }
 
-h1 {
+h1, h2 {
     text-align: center;
     margin-bottom: 20px;
 }
@@ -61,4 +61,17 @@ td {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+#menuPlan td[contenteditable="true"] {
+    background-color: #fffbe1;
+}
+
+.appointment {
+    background-color: #e0f7fa;
+    border: 1px solid #00897b;
+    padding: 5px;
+    margin: 2px 0;
+    border-radius: 3px;
+    word-break: break-all;
 }
