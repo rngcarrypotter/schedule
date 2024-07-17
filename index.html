@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,6 +24,7 @@
         </thead>
         <tbody>
             <!-- Generate rows for each hour of the day from 07:00 to 23:00 -->
+            <!-- Repeated rows omitted for brevity -->
             <tr>
                 <td>07:00 - 08:00</td>
                 <td data-day="Monday" data-time="07:00-08:00"></td>
@@ -33,8 +35,7 @@
                 <td data-day="Saturday" data-time="07:00-08:00"></td>
                 <td data-day="Sunday" data-time="07:00-08:00"></td>
             </tr>
-            <tr>
-                <td>08:00 - 09:00</td>
+            d>08:00 - 09:00</td>
                 <td data-day="Monday" data-time="08:00-09:00"></td>
                 <td data-day="Tuesday" data-time="08:00-09:00"></td>
                 <td data-day="Wednesday" data-time="08:00-09:00"></td>
@@ -83,6 +84,7 @@
                 <td data-day="Saturday" data-time="12:00-13:00"></td>
                 <td data-day="Sunday" data-time="12:00-13:00"></td>
             </tr>
+        
             <tr>
                 <td>13:00 - 14:00</td>
                 <td data-day="Monday" data-time="13:00-14:00"></td>
@@ -184,6 +186,18 @@
                 <td data-day="Sunday" data-time="22:00-23:00"></td>
             </tr>
         </tbody>
+        <tfoot>
+            <tr>
+                <td>Totals</td>
+                <td id="Monday-count">0 Done / 0 Undone</td>
+                <td id="Tuesday-count">0 Done / 0 Undone</td>
+                <td id="Wednesday-count">0 Done / 0 Undone</td>
+                <td id="Thursday-count">0 Done / 0 Undone</td>
+                <td id="Friday-count">0 Done / 0 Undone</td>
+                <td id="Saturday-count">0 Done / 0 Undone</td>
+                <td id="Sunday-count">0 Done / 0 Undone</td>
+            </tr>
+        </tfoot>
     </table>
 
     <div id="modal" class="modal">
@@ -199,6 +213,9 @@
                 <input type="hidden" id="appointmentRow" name="row">
                 <button type="submit">Save</button>
             </form>
+            <button id="deleteButton">Delete</button>
+            <button id="markDoneButton">Mark as Done</button>
+            <button id="markUndoneButton">Mark as Undone</button>
         </div>
     </div>
 
@@ -253,3 +270,5 @@
     <script src="script.js"></script>
 </body>
 </html>
+
+
