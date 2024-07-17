@@ -108,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         const jsonData = JSON.stringify(timetableData);
 
+        const sha = await getCurrentFileSha('timetable.json');
         const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/timetable.json`, {
             method: 'PUT',
             headers: {
@@ -116,8 +117,8 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             body: JSON.stringify({
                 message: 'Update timetable data',
-                content: btoa(jsonData),
-                sha: await getCurrentFileSha('timetable.json')
+                content: btoa(unescape(encodeURIComponent(jsonData))),
+                sha: sha || null
             })
         });
 
@@ -135,6 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (response.ok) {
             const data = await response.json();
             return data.sha;
+        } else if (response.status === 404) {
+            return null;
         }
         return null;
     }
@@ -147,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         if (response.ok) {
             const data = await response.json();
-            const timetableData = JSON.parse(atob(data.content));
+            const timetableData = JSON.parse(decodeURIComponent(escape(atob(data.content))));
             timetableData.forEach(entry => {
                 const cell = document.querySelector(`td[data-day="${entry.day}"][data-time="${entry.time}"]`);
                 if (cell) {
@@ -188,6 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         const jsonData = JSON.stringify(menuPlanData);
 
+        const sha = await getCurrentFileSha('menuPlan.json');
         const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/menuPlan.json`, {
             method: 'PUT',
             headers: {
@@ -196,8 +200,8 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             body: JSON.stringify({
                 message: 'Update menu plan data',
-                content: btoa(jsonData),
-                sha: await getCurrentFileSha('menuPlan.json')
+                content: btoa(unescape(encodeURIComponent(jsonData))),
+                sha: sha || null
             })
         });
 
@@ -214,14 +218,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         if (response.ok) {
             const data = await response.json();
-            const menuPlanData = JSON.parse(atob(data.content));
-            menuPlanData.forEach(entry => {
-                const dayRow = Array.from(document.querySelectorAll('#menuPlan td')).find(td => td.textContent === entry.day).parentElement;
-                const cell = entry.meal === 'lunch' ? dayRow.children[1] : dayRow.children[2];
-                cell.textContent = entry.content;
-            });
-        }
-    }
-
-    loadMenuPlan();
-});
+            cons
