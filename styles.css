@@ -74,6 +74,18 @@ td {
     margin: 2px 0;
     border-radius: 3px;
     word-break: break-all;
+    position: relative;
+}
+
+.appointment .appointment-text {
+    display: block;
+}
+
+.appointment .appointment-icons {
+    display: none;
+    position: absolute;
+    right: 5px;
+    top: 5px;
 }
 
 .appointment .edit, .appointment .delete, .appointment .mark-done, .appointment .mark-undone {
