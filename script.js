@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let selectedAppointment;
 
     const GITHUB_REPO = 'rngcarrypotter/schedule';
-    const GITHUB_TOKEN = 'your_actual_personal_access_token';
+    const GITHUB_TOKEN = 'GH_TOKEN';
 
     // Load appointments from GitHub
     loadAppointments();
