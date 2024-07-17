@@ -11,6 +11,7 @@
     <table id="timetable">
         <thead>
             <tr>
+                <th>Date</th>
                 <th>Time</th>
                 <th>Monday</th>
                 <th>Tuesday</th>
@@ -22,8 +23,18 @@
             </tr>
         </thead>
         <tbody>
-            <!-- Generate rows for each hour of the day -->
-            <!-- Repeat this row structure for each hour time slot -->
+            <!-- Example week with dates -->
+            <tr>
+                <td rowspan="16">07/15</td> <!-- Example date for Monday -->
+                <td>07:00 - 08:00</td>
+                <td data-day="Monday" data-time="07:00-08:00"></td>
+                <td data-day="Tuesday" data-time="07:00-08:00"></td>
+                <td data-day="Wednesday" data-time="07:00-08:00"></td>
+                <td data-day="Thursday" data-time="07:00-08:00"></td>
+                <td data-day="Friday" data-time="07:00-08:00"></td>
+                <td data-day="Saturday" data-time="07:00-08:00"></td>
+                <td data-day="Sunday" data-time="07:00-08:00"></td>
+            </tr>
             <tr>
                 <td>08:00 - 09:00</td>
                 <td data-day="Monday" data-time="08:00-09:00"></td>
@@ -34,24 +45,214 @@
                 <td data-day="Saturday" data-time="08:00-09:00"></td>
                 <td data-day="Sunday" data-time="08:00-09:00"></td>
             </tr>
-            <!-- Add more rows for other time slots -->
+            <tr>
+                <td>09:00 - 10:00</td>
+                <td data-day="Monday" data-time="09:00-10:00"></td>
+                <td data-day="Tuesday" data-time="09:00-10:00"></td>
+                <td data-day="Wednesday" data-time="09:00-10:00"></td>
+                <td data-day="Thursday" data-time="09:00-10:00"></td>
+                <td data-day="Friday" data-time="09:00-10:00"></td>
+                <td data-day="Saturday" data-time="09:00-10:00"></td>
+                <td data-day="Sunday" data-time="09:00-10:00"></td>
+            </tr>
+            <tr>
+                <td>10:00 - 11:00</td>
+                <td data-day="Monday" data-time="10:00-11:00"></td>
+                <td data-day="Tuesday" data-time="10:00-11:00"></td>
+                <td data-day="Wednesday" data-time="10:00-11:00"></td>
+                <td data-day="Thursday" data-time="10:00-11:00"></td>
+                <td data-day="Friday" data-time="10:00-11:00"></td>
+                <td data-day="Saturday" data-time="10:00-11:00"></td>
+                <td data-day="Sunday" data-time="10:00-11:00"></td>
+            </tr>
+            <tr>
+                <td>11:00 - 12:00</td>
+                <td data-day="Monday" data-time="11:00-12:00"></td>
+                <td data-day="Tuesday" data-time="11:00-12:00"></td>
+                <td data-day="Wednesday" data-time="11:00-12:00"></td>
+                <td data-day="Thursday" data-time="11:00-12:00"></td>
+                <td data-day="Friday" data-time="11:00-12:00"></td>
+                <td data-day="Saturday" data-time="11:00-12:00"></td>
+                <td data-day="Sunday" data-time="11:00-12:00"></td>
+            </tr>
+            <tr>
+                <td>12:00 - 13:00</td>
+                <td data-day="Monday" data-time="12:00-13:00"></td>
+                <td data-day="Tuesday" data-time="12:00-13:00"></td>
+                <td data-day="Wednesday" data-time="12:00-13:00"></td>
+                <td data-day="Thursday" data-time="12:00-13:00"></td>
+                <td data-day="Friday" data-time="12:00-13:00"></td>
+                <td data-day="Saturday" data-time="12:00-13:00"></td>
+                <td data-day="Sunday" data-time="12:00-13:00"></td>
+            </tr>
+            <tr>
+                <td>13:00 - 14:00</td>
+                <td data-day="Monday" data-time="13:00-14:00"></td>
+                <td data-day="Tuesday" data-time="13:00-14:00"></td>
+                <td data-day="Wednesday" data-time="13:00-14:00"></td>
+                <td data-day="Thursday" data-time="13:00-14:00"></td>
+                <td data-day="Friday" data-time="13:00-14:00"></td>
+                <td data-day="Saturday" data-time="13:00-14:00"></td>
+                <td data-day="Sunday" data-time="13:00-14:00"></td>
+            </tr>
+            <tr>
+                <td>14:00 - 15:00</td>
+                <td data-day="Monday" data-time="14:00-15:00"></td>
+                <td data-day="Tuesday" data-time="14:00-15:00"></td>
+                <td data-day="Wednesday" data-time="14:00-15:00"></td>
+                <td data-day="Thursday" data-time="14:00-15:00"></td>
+                <td data-day="Friday" data-time="14:00-15:00"></td>
+                <td data-day="Saturday" data-time="14:00-15:00"></td>
+                <td data-day="Sunday" data-time="14:00-15:00"></td>
+            </tr>
+            <tr>
+                <td>15:00 - 16:00</td>
+                <td data-day="Monday" data-time="15:00-16:00"></td>
+                <td data-day="Tuesday" data-time="15:00-16:00"></td>
+                <td data-day="Wednesday" data-time="15:00-16:00"></td>
+                <td data-day="Thursday" data-time="15:00-16:00"></td>
+                <td data-day="Friday" data-time="15:00-16:00"></td>
+                <td data-day="Saturday" data-time="15:00-16:00"></td>
+                <td data-day="Sunday" data-time="15:00-16:00"></td>
+            </tr>
+            <tr>
+                <td>16:00 - 17:00</td>
+                <td data-day="Monday" data-time="16:00-17:00"></td>
+                <td data-day="Tuesday" data-time="16:00-17:00"></td>
+                <td data-day="Wednesday" data-time="16:00-17:00"></td>
+                <td data-day="Thursday" data-time="16:00-17:00"></td>
+                <td data-day="Friday" data-time="16:00-17:00"></td>
+                <td data-day="Saturday" data-time="16:00-17:00"></td>
+                <td data-day="Sunday" data-time="16:00-17:00"></td>
+            </tr>
+            <tr>
+                <td>17:00 - 18:00</td>
+                <td data-day="Monday" data-time="17:00-18:00"></td>
+                <td data-day="Tuesday" data-time="17:00-18:00"></td>
+                <td data-day="Wednesday" data-time="17:00-18:00"></td>
+                <td data-day="Thursday" data-time="17:00-18:00"></td>
+                <td data-day="Friday" data-time="17:00-18:00"></td>
+                <td data-day="Saturday" data-time="17:00-18:00"></td>
+                <td data-day="Sunday" data-time="17:00-18:00"></td>
+            </tr>
+            <tr>
+                <td>18:00 - 19:00</td>
+                <td data-day="Monday" data-time="18:00-19:00"></td>
+                <td data-day="Tuesday" data-time="18:00-19:00"></td>
+                <td data-day="Wednesday" data-time="18:00-19:00"></td>
+                <td data-day="Thursday" data-time="18:00-19:00"></td>
+                <td data-day="Friday" data-time="18:00-19:00"></td>
+                <td data-day="Saturday" data-time="18:00-19:00"></td>
+                <td data-day="Sunday" data-time="18:00-19:00"></td>
+            </tr>
+            <tr>
+                <td>19:00 - 20:00</td>
+                <td data-day="Monday" data-time="19:00-20:00"></td>
+                <td data-day="Tuesday" data-time="19:00-20:00"></td>
+                <td data-day="Wednesday" data-time="19:00-20:00"></td>
+                <td data-day="Thursday" data-time="19:00-20:00"></td>
+                <td data-day="Friday" data-time="19:00-20:00"></td>
+                <td data-day="Saturday" data-time="19:00-20:00"></td>
+                <td data-day="Sunday" data-time="19:00-20:00"></td>
+            </tr>
+            <tr>
+                <td>20:00 - 21:00</td>
+                <td data-day="Monday" data-time="20:00-21:00"></td>
+                <td data-day="Tuesday" data-time="20:00-21:00"></td>
+                <td data-day="Wednesday" data-time="20:00-21:00"></td>
+                <td data-day="Thursday" data-time="20:00-21:00"></td>
+                <td data-day="Friday" data-time="20:00-21:00"></td>
+                <td data-day="Saturday" data-time="20:00-21:00"></td>
+                <td data-day="Sunday" data-time="20:00-21:00"></td>
+            </tr>
+            <tr>
+                <td>21:00 - 22:00</td>
+                <td data-day="Monday" data-time="21:00-22:00"></td>
+                <td data-day="Tuesday" data-time="21:00-22:00"></td>
+                <td data-day="Wednesday" data-time="21:00-22:00"></td>
+                <td data-day="Thursday" data-time="21:00-22:00"></td>
+                <td data-day="Friday" data-time="21:00-22:00"></td>
+                <td data-day="Saturday" data-time="21:00-22:00"></td>
+                <td data-day="Sunday" data-time="21:00-22:00"></td>
+            </tr>
+            <tr>
+                <td>22:00 - 23:00</td>
+                <td data-day="Monday" data-time="22:00-23:00"></td>
+                <td data-day="Tuesday" data-time="22:00-23:00"></td>
+                <td data-day="Wednesday" data-time="22:00-23:00"></td>
+                <td data-day="Thursday" data-time="22:00-23:00"></td>
+                <td data-day="Friday" data-time="22:00-23:00"></td>
+                <td data-day="Saturday" data-time="22:00-23:00"></td>
+                <td data-day="Sunday" data-time="22:00-23:00"></td>
+            </tr>
+
+            <!-- Repeat the above structure for other dates of the week -->
         </tbody>
     </table>
 
-    <!-- Modal for adding appointments -->
     <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Add Appointment</h2>
+            <h2>Add/Edit Appointment</h2>
             <form id="appointmentForm">
+                <label for="appointmentTime">Time:</label>
+                <input type="time" id="appointmentTime" name="time" required>
                 <label for="appointmentDescription">Description:</label>
                 <input type="text" id="appointmentDescription" name="description" required>
                 <input type="hidden" id="appointmentDay" name="day">
-                <input type="hidden" id="appointmentTime" name="time">
+                <input type="hidden" id="appointmentRow" name="row">
                 <button type="submit">Save</button>
             </form>
         </div>
     </div>
+
+    <h2>Menu Plan</h2>
+    <table id="menuPlan">
+        <thead>
+            <tr>
+                <th>Day</th>
+                <th>Lunch</th>
+                <th>Dinner</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Monday</td>
+                <td contenteditable="true"></td>
+                <td contenteditable="true"></td>
+            </tr>
+            <tr>
+                <td>Tuesday</td>
+                <td contenteditable="true"></td>
+                <td contenteditable="true"></td>
+            </tr>
+            <tr>
+                <td>Wednesday</td>
+                <td contenteditable="true"></td>
+                <td contenteditable="true"></td>
+            </tr>
+            <tr>
+                <td>Thursday</td>
+                <td contenteditable="true"></td>
+                <td contenteditable="true"></td>
+            </tr>
+            <tr>
+                <td>Friday</td>
+                <td contenteditable="true"></td>
+                <td contenteditable="true"></td>
+            </tr>
+            <tr>
+                <td>Saturday</td>
+                <td contenteditable="true"></td>
+                <td contenteditable="true"></td>
+            </tr>
+            <tr>
+                <td>Sunday</td>
+                <td contenteditable="true"></td>
+                <td contenteditable="true"></td>
+            </tr>
+        </tbody>
+    </table>
 
     <script src="script.js"></script>
 </body>
