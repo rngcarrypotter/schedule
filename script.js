@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let selectedCell;
     let selectedAppointment;
 
-    const GITHUB_REPO = 'rngcarrypotter/timetable-website';
+    const GITHUB_REPO = 'rngcarrypotter/schedule';
     const GITHUB_TOKEN = 'GH_TOKEN';
 
     // Load appointments from GitHub
