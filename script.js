@@ -3,7 +3,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('modal');
     const span = document.getElementsByClassName('close')[0];
     const form = document.getElementById('appointmentForm');
+    const deleteButton = document.getElementById('deleteButton');
+    const markDoneButton = document.getElementById('markDoneButton');
+    const markUndoneButton = document.getElementById('markUndoneButton');
     let selectedCell;
+    let selectedAppointment;
 
     // Load appointments from localStorage
     loadAppointments();
@@ -32,60 +36,57 @@ document.addEventListener('DOMContentLoaded', () => {
         const minutes = document.getElementById('appointmentMinutes').value.padStart(2, '0');
         const description = document.getElementById('appointmentDescription').value;
         const hour = selectedCell.dataset.time.split(':')[0];
-        const appointment = createAppointmentElement(`${hour}:${minutes}`, description);
-        selectedCell.appendChild(appointment);
+        if (selectedAppointment) {
+            selectedAppointment.querySelector('.appointment-text').textContent = `${hour}:${minutes} - ${description}`;
+        } else {
+            const appointment = createAppointmentElement(`${hour}:${minutes}`, description);
+            selectedCell.appendChild(appointment);
+        }
         saveAppointments();
         modal.style.display = 'none';
         form.reset();
+        updateCounters();
+    });
+
+    deleteButton.addEventListener('click', () => {
+        if (selectedAppointment) {
+            selectedAppointment.remove();
+            selectedAppointment = null;
+            saveAppointments();
+            modal.style.display = 'none';
+            form.reset();
+            updateCounters();
+        }
+    });
+
+    markDoneButton.addEventListener('click', () => {
+        if (selectedAppointment) {
+            selectedAppointment.style.backgroundColor = 'lightgreen';
+            saveAppointments();
+            updateCounters();
+        }
+    });
+
+    markUndoneButton.addEventListener('click', () => {
+        if (selectedAppointment) {
+            selectedAppointment.style.backgroundColor = 'lightcoral';
+            saveAppointments();
+            updateCounters();
+        }
     });
 
     function createAppointmentElement(time, description) {
         const appointment = document.createElement('div');
         appointment.className = 'appointment';
-        appointment.innerHTML = `<span class="appointment-text">${time} - ${description}</span>
-                                 <span class="appointment-icons">
-                                     <span class="edit">✏️</span>
-                                     <span class="delete">🗑️</span>
-                                     <span class="mark-done">✔️</span>
-                                     <span class="mark-undone">❌</span>
-                                 </span>`;
-        appointment.querySelector('.edit').addEventListener('click', (e) => { e.stopPropagation(); editAppointment(appointment); });
-        appointment.querySelector('.delete').addEventListener('click', (e) => { e.stopPropagation(); deleteAppointment(appointment); });
-        appointment.querySelector('.mark-done').addEventListener('click', (e) => { e.stopPropagation(); markDone(appointment); });
-        appointment.querySelector('.mark-undone').addEventListener('click', (e) => { e.stopPropagation(); markUndone(appointment); });
-        appointment.addEventListener('click', () => toggleIcons(appointment));
+        appointment.innerHTML = `<span class="appointment-text">${time} - ${description}</span>`;
+        appointment.addEventListener('click', () => {
+            selectedAppointment = appointment;
+            const [hour, minutes] = time.split(':');
+            document.getElementById('appointmentMinutes').value = minutes;
+            document.getElementById('appointmentDescription').value = description;
+            modal.style.display = 'block';
+        });
         return appointment;
-    }
-
-    function toggleIcons(appointment) {
-        const icons = appointment.querySelector('.appointment-icons');
-        icons.style.display = icons.style.display === 'block' ? 'none' : 'block';
-    }
-
-    function editAppointment(appointment) {
-        const time = prompt("Edit Time (HH:MM):", appointment.querySelector('.appointment-text').textContent.split(' - ')[0]);
-        const description = prompt("Edit Description:", appointment.querySelector('.appointment-text').textContent.split(' - ')[1]);
-        if (time && description) {
-            appointment.querySelector('.appointment-text').textContent = `${time} - ${description}`;
-            saveAppointments();
-        }
-    }
-
-    function deleteAppointment(appointment) {
-        if (confirm("Are you sure you want to delete this appointment?")) {
-            appointment.remove();
-            saveAppointments();
-        }
-    }
-
-    function markDone(appointment) {
-        appointment.style.backgroundColor = 'lightgreen';
-        saveAppointments();
-    }
-
-    function markUndone(appointment) {
-        appointment.style.backgroundColor = 'lightcoral';
-        saveAppointments();
     }
 
     function saveAppointments() {
@@ -116,6 +117,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     cell.appendChild(appointment);
                 });
             }
+        });
+        updateCounters();
+    }
+
+    function updateCounters() {
+        const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+        days.forEach(day => {
+            const done = document.querySelectorAll(`td[data-day="${day}"] .appointment[style*="lightgreen"]`).length;
+            const undone = document.querySelectorAll(`td[data-day="${day}"] .appointment[style*="lightcoral"]`).length;
+            document.getElementById(`${day}-count`).textContent = `${done} Done / ${undone} Undone`;
         });
     }
 
