@@ -115,10 +115,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function loadMenuPlan() {
         const menuPlanData = JSON.parse(localStorage.getItem('menuPlan')) || [];
         menuPlanData.forEach(entry => {
-            const cell = document.querySelector(`#menuPlan td:nth-child(${entry.meal === 'lunch' ? 2 : 3})[contenteditable="true"]`);
-            if (cell) {
-                cell.textContent = entry.content;
-            }
+            const dayRow = Array.from(document.querySelectorAll('#menuPlan td')).find(td => td.textContent === entry.day).parentElement;
+            const cell = entry.meal === 'lunch' ? dayRow.children[1] : dayRow.children[2];
+            cell.textContent = entry.content;
         });
     }
 
