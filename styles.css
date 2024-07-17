@@ -75,3 +75,8 @@ td {
     border-radius: 3px;
     word-break: break-all;
 }
+
+.appointment .edit, .appointment .delete, .appointment .mark-done, .appointment .mark-undone {
+    margin-left: 5px;
+    cursor: pointer;
+}
