@@ -11,21 +11,19 @@
     <table id="timetable">
         <thead>
             <tr>
-                <th>Date</th>
                 <th>Time</th>
-                <th>Monday</th>
-                <th>Tuesday</th>
-                <th>Wednesday</th>
-                <th>Thursday</th>
-                <th>Friday</th>
-                <th>Saturday</th>
-                <th>Sunday</th>
+                <th>Monday, 15th of July</th>
+                <th>Tuesday, 16th of July</th>
+                <th>Wednesday, 17th of July</th>
+                <th>Thursday, 18th of July</th>
+                <th>Friday, 19th of July</th>
+                <th>Saturday, 20th of July</th>
+                <th>Sunday, 21st of July</th>
             </tr>
         </thead>
         <tbody>
-            <!-- Example week with dates -->
+            <!-- Generate rows for each hour of the day from 07:00 to 23:00 -->
             <tr>
-                <td rowspan="16">07/15</td> <!-- Example date for Monday -->
                 <td>07:00 - 08:00</td>
                 <td data-day="Monday" data-time="07:00-08:00"></td>
                 <td data-day="Tuesday" data-time="07:00-08:00"></td>
@@ -185,8 +183,6 @@
                 <td data-day="Saturday" data-time="22:00-23:00"></td>
                 <td data-day="Sunday" data-time="22:00-23:00"></td>
             </tr>
-
-            <!-- Repeat the above structure for other dates of the week -->
         </tbody>
     </table>
 
@@ -195,8 +191,8 @@
             <span class="close">&times;</span>
             <h2>Add/Edit Appointment</h2>
             <form id="appointmentForm">
-                <label for="appointmentTime">Time:</label>
-                <input type="time" id="appointmentTime" name="time" required>
+                <label for="appointmentMinutes">Minutes:</label>
+                <input type="number" id="appointmentMinutes" name="minutes" min="0" max="59" required>
                 <label for="appointmentDescription">Description:</label>
                 <input type="text" id="appointmentDescription" name="description" required>
                 <input type="hidden" id="appointmentDay" name="day">
