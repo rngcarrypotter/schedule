@@ -9,7 +9,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let selectedCell;
     let selectedAppointment;
 
-    // Load appointments from localStorage
+    const GITHUB_REPO = 'rngcarrypotter/timetable-website';
+    const GITHUB_TOKEN = 'GH_TOKEN';
+
+    // Load appointments from GitHub
     loadAppointments();
 
     cells.forEach(cell => {
@@ -89,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return appointment;
     }
 
-    function saveAppointments() {
+    async function saveAppointments() {
         const timetableData = [];
         cells.forEach(cell => {
             const appointments = Array.from(cell.children).map(app => ({
@@ -103,22 +106,60 @@ document.addEventListener('DOMContentLoaded', () => {
                 appointments: appointments
             });
         });
-        localStorage.setItem('timetable', JSON.stringify(timetableData));
+        const jsonData = JSON.stringify(timetableData);
+
+        const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/timetable.json`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `token ${GITHUB_TOKEN}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                message: 'Update timetable data',
+                content: btoa(jsonData),
+                sha: await getCurrentFileSha('timetable.json')
+            })
+        });
+
+        if (!response.ok) {
+            console.error('Failed to save timetable:', response.statusText);
+        }
     }
 
-    function loadAppointments() {
-        const timetableData = JSON.parse(localStorage.getItem('timetable')) || [];
-        timetableData.forEach(entry => {
-            const cell = document.querySelector(`td[data-day="${entry.day}"][data-time="${entry.time}"]`);
-            if (cell) {
-                entry.appointments.forEach(app => {
-                    const appointment = createAppointmentElement(app.time, app.description);
-                    appointment.style.backgroundColor = app.status; // Load the status (color) of the appointment
-                    cell.appendChild(appointment);
-                });
+    async function getCurrentFileSha(filename) {
+        const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${filename}`, {
+            headers: {
+                'Authorization': `token ${GITHUB_TOKEN}`
             }
         });
-        updateCounters();
+        if (response.ok) {
+            const data = await response.json();
+            return data.sha;
+        }
+        return null;
+    }
+
+    async function loadAppointments() {
+        const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/timetable.json`, {
+            headers: {
+                'Authorization': `token ${GITHUB_TOKEN}`
+            }
+        });
+        if (response.ok) {
+            const data = await response.json();
+            const timetableData = JSON.parse(atob(data.content));
+            timetableData.forEach(entry => {
+                const cell = document.querySelector(`td[data-day="${entry.day}"][data-time="${entry.time}"]`);
+                if (cell) {
+                    entry.appointments.forEach(app => {
+                        const appointment = createAppointmentElement(app.time, app.description);
+                        appointment.style.backgroundColor = app.status; // Load the status (color) of the appointment
+                        cell.appendChild(appointment);
+                    });
+                }
+            });
+            updateCounters();
+        }
     }
 
     function updateCounters() {
@@ -136,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cell.addEventListener('input', saveMenuPlan);
     });
 
-    function saveMenuPlan() {
+    async function saveMenuPlan() {
         const menuPlanData = [];
         menuCells.forEach(cell => {
             menuPlanData.push({
@@ -145,16 +186,41 @@ document.addEventListener('DOMContentLoaded', () => {
                 content: cell.textContent
             });
         });
-        localStorage.setItem('menuPlan', JSON.stringify(menuPlanData));
+        const jsonData = JSON.stringify(menuPlanData);
+
+        const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/menuPlan.json`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `token ${GITHUB_TOKEN}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                message: 'Update menu plan data',
+                content: btoa(jsonData),
+                sha: await getCurrentFileSha('menuPlan.json')
+            })
+        });
+
+        if (!response.ok) {
+            console.error('Failed to save menu plan:', response.statusText);
+        }
     }
 
-    function loadMenuPlan() {
-        const menuPlanData = JSON.parse(localStorage.getItem('menuPlan')) || [];
-        menuPlanData.forEach(entry => {
-            const dayRow = Array.from(document.querySelectorAll('#menuPlan td')).find(td => td.textContent === entry.day).parentElement;
-            const cell = entry.meal === 'lunch' ? dayRow.children[1] : dayRow.children[2];
-            cell.textContent = entry.content;
+    async function loadMenuPlan() {
+        const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/menuPlan.json`, {
+            headers: {
+                'Authorization': `token ${GITHUB_TOKEN}`
+            }
         });
+        if (response.ok) {
+            const data = await response.json();
+            const menuPlanData = JSON.parse(atob(data.content));
+            menuPlanData.forEach(entry => {
+                const dayRow = Array.from(document.querySelectorAll('#menuPlan td')).find(td => td.textContent === entry.day).parentElement;
+                const cell = entry.meal === 'lunch' ? dayRow.children[1] : dayRow.children[2];
+                cell.textContent = entry.content;
+            });
+        }
     }
 
     loadMenuPlan();
