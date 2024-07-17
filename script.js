@@ -42,23 +42,31 @@ document.addEventListener('DOMContentLoaded', () => {
     function createAppointmentElement(time, description) {
         const appointment = document.createElement('div');
         appointment.className = 'appointment';
-        appointment.innerHTML = `${time} - ${description} <span class="edit">✏️</span> <span class="delete">🗑️</span> <span class="mark-done">✔️</span> <span class="mark-undone">❌</span>`;
-        appointment.querySelector('.edit').addEventListener('click', () => editAppointment(appointment));
-        appointment.querySelector('.delete').addEventListener('click', () => deleteAppointment(appointment));
-        appointment.querySelector('.mark-done').addEventListener('click', () => markDone(appointment));
-        appointment.querySelector('.mark-undone').addEventListener('click', () => markUndone(appointment));
+        appointment.innerHTML = `<span class="appointment-text">${time} - ${description}</span>
+                                 <span class="appointment-icons">
+                                     <span class="edit">✏️</span>
+                                     <span class="delete">🗑️</span>
+                                     <span class="mark-done">✔️</span>
+                                     <span class="mark-undone">❌</span>
+                                 </span>`;
+        appointment.querySelector('.edit').addEventListener('click', (e) => { e.stopPropagation(); editAppointment(appointment); });
+        appointment.querySelector('.delete').addEventListener('click', (e) => { e.stopPropagation(); deleteAppointment(appointment); });
+        appointment.querySelector('.mark-done').addEventListener('click', (e) => { e.stopPropagation(); markDone(appointment); });
+        appointment.querySelector('.mark-undone').addEventListener('click', (e) => { e.stopPropagation(); markUndone(appointment); });
+        appointment.addEventListener('click', () => toggleIcons(appointment));
         return appointment;
     }
 
+    function toggleIcons(appointment) {
+        const icons = appointment.querySelector('.appointment-icons');
+        icons.style.display = icons.style.display === 'block' ? 'none' : 'block';
+    }
+
     function editAppointment(appointment) {
-        const time = prompt("Edit Time (HH:MM):", appointment.textContent.split(' - ')[0]);
-        const description = prompt("Edit Description:", appointment.textContent.split(' - ')[1].split(' ')[0]);
+        const time = prompt("Edit Time (HH:MM):", appointment.querySelector('.appointment-text').textContent.split(' - ')[0]);
+        const description = prompt("Edit Description:", appointment.querySelector('.appointment-text').textContent.split(' - ')[1]);
         if (time && description) {
-            appointment.innerHTML = `${time} - ${description} <span class="edit">✏️</span> <span class="delete">🗑️</span> <span class="mark-done">✔️</span> <span class="mark-undone">❌</span>`;
-            appointment.querySelector('.edit').addEventListener('click', () => editAppointment(appointment));
-            appointment.querySelector('.delete').addEventListener('click', () => deleteAppointment(appointment));
-            appointment.querySelector('.mark-done').addEventListener('click', () => markDone(appointment));
-            appointment.querySelector('.mark-undone').addEventListener('click', () => markUndone(appointment));
+            appointment.querySelector('.appointment-text').textContent = `${time} - ${description}`;
             saveAppointments();
         }
     }
@@ -84,8 +92,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const timetableData = [];
         cells.forEach(cell => {
             const appointments = Array.from(cell.children).map(app => ({
-                time: app.textContent.split(' - ')[0],
-                description: app.textContent.split(' - ')[1].split(' ')[0],
+                time: app.querySelector('.appointment-text').textContent.split(' - ')[0],
+                description: app.querySelector('.appointment-text').textContent.split(' - ')[1],
                 status: app.style.backgroundColor // Save the status (color) of the appointment
             }));
             timetableData.push({
