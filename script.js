@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let selectedAppointment;
 
     const GITHUB_REPO = 'rngcarrypotter/schedule';
-    const GITHUB_TOKEN = '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';
+    const GITHUB_TOKEN = 'your_actual_personal_access_token';
 
     // Load appointments from GitHub
     loadAppointments();
@@ -20,6 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
             selectedCell = cell;
             document.getElementById('appointmentDay').value = cell.dataset.day;
             document.getElementById('appointmentRow').value = cell.dataset.time;
+            if (selectedAppointment) {
+                selectedAppointment = null;
+            }
             modal.style.display = 'block';
         });
     });
@@ -218,4 +221,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         if (response.ok) {
             const data = await response.json();
-            cons
+            const menuPlanData = JSON.parse(decodeURIComponent(escape(atob(data.content))));
+            menuPlanData.forEach(entry => {
+                const dayRow = Array.from(document.querySelectorAll('#menuPlan td')).find(td => td.textContent === entry.day).parentElement;
+                const cell = entry.meal === 'lunch' ? dayRow.children[1] : dayRow.children[2];
+                cell.textContent = entry.content;
+            });
+        }
+    }
+
+    loadMenuPlan();
+});
