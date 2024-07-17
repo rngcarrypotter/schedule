@@ -1,0 +1,27 @@
+name: Update Timetable and Menu Plan
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run update script
+        run: node update.js
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
