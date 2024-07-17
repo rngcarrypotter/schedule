@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Timetable</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Weekly Timetable</h1>
+    <table id="timetable">
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+                <th>Saturday</th>
+                <th>Sunday</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Generate rows for each hour of the day -->
+            <!-- Repeat this row structure for each hour time slot -->
+            <tr>
+                <td>08:00 - 09:00</td>
+                <td data-day="Monday" data-time="08:00-09:00"></td>
+                <td data-day="Tuesday" data-time="08:00-09:00"></td>
+                <td data-day="Wednesday" data-time="08:00-09:00"></td>
+                <td data-day="Thursday" data-time="08:00-09:00"></td>
+                <td data-day="Friday" data-time="08:00-09:00"></td>
+                <td data-day="Saturday" data-time="08:00-09:00"></td>
+                <td data-day="Sunday" data-time="08:00-09:00"></td>
+            </tr>
+            <!-- Add more rows for other time slots -->
+        </tbody>
+    </table>
+
+    <!-- Modal for adding appointments -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add Appointment</h2>
+            <form id="appointmentForm">
+                <label for="appointmentDescription">Description:</label>
+                <input type="text" id="appointmentDescription" name="description" required>
+                <input type="hidden" id="appointmentDay" name="day">
+                <input type="hidden" id="appointmentTime" name="time">
+                <button type="submit">Save</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
