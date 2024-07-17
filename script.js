@@ -29,9 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     form.addEventListener('submit', (event) => {
         event.preventDefault();
-        const time = document.getElementById('appointmentTime').value;
+        const minutes = document.getElementById('appointmentMinutes').value.padStart(2, '0');
         const description = document.getElementById('appointmentDescription').value;
-        const appointment = createAppointmentElement(time, description);
+        const hour = selectedCell.dataset.time.split(':')[0];
+        const appointment = createAppointmentElement(`${hour}:${minutes}`, description);
         selectedCell.appendChild(appointment);
         saveAppointments();
         modal.style.display = 'none';
@@ -48,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function editAppointment(appointment) {
-        const time = prompt("Edit Time:", appointment.textContent.split(' - ')[0]);
+        const time = prompt("Edit Time (HH:MM):", appointment.textContent.split(' - ')[0]);
         const description = prompt("Edit Description:", appointment.textContent.split(' - ')[1].split(' ')[0]);
         if (time && description) {
             appointment.innerHTML = `${time} - ${description} <span class="edit">✏️</span> <span class="delete">🗑️</span>`;
